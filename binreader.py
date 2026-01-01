@@ -1,6 +1,4 @@
-# opens .bin files and 
-# highlight the bits that have changed
-# between two files
+# opens .bin files ONLY
 
 from pathlib import Path
 from colored import fg, bg, attr
@@ -75,4 +73,5 @@ def main():
 if __name__ == "__main__":
     main()       
     
+
     
