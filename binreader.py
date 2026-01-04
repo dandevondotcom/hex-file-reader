@@ -34,30 +34,28 @@ def display(file):
 def backup(file):
     path = os.path.splitext(file)
     with open(file, 'rb') as src, open(f'{path[0]}.tmp', 'wb') as dst:
-        nbytes = src.read()
-        for byte in src:
-            print(f"{byte}")
-            dst.write(byte) 
+        src_bytes = src.read()
+        dst.write(src_bytes)
             
     print("\n")
-    print(f"{RED}{len(nbytes)} bytes {RESET}saved to {path[0]}.tmp")
+    print(f"{RED}{len(src_bytes)} bytes {RESET}saved to {path[0]}.tmp")
     print("\n")
     #display(file)
     src.close()
     dst.close()
-    
+        
 def main():
     parser = argparse.ArgumentParser(description=f"USAGE: binreader.py [filename]")
     parser.add_argument("filename", help="The path to the input file for processing.")
-    parser.add_argument('--verbose', '-s', action='store_true', help='Save data to .tmp file')
+    parser.add_argument('--verbose', '-b', action='store_true', help='backup data to .tmp file')
     
     args = parser.parse_args()
-    
     fpath = args.filename
+    print(fpath)
     if args.verbose:
         if os.path.isfile(fpath):
             ext = os.path.splitext(fpath)[-1].lower()
-            if ext == ".bin":
+            if ext == ".bin" or ext==".tmp":
                 backup(fpath)
             else:    
                 print(f"{RED}.bin FILES ONLY{RESET}")
@@ -65,7 +63,7 @@ def main():
     else:
         if os.path.isfile(fpath):
             ext = os.path.splitext(fpath)[-1].lower()
-            if ext == ".bin":
+            if ext == ".bin" or ext==".tmp":
                 display(fpath)
             else:    
                 print(f"{RED}.bin FILES ONLY{RESET}")
